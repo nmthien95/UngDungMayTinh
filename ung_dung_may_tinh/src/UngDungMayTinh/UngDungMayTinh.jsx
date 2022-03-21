@@ -37,11 +37,13 @@ export default class UngDungMayTinh extends Component {
 
     if (res.length > 12) {
       if (res.includes(".")) {
-        res = res.substring(0, 11);
-      } else {
-        res = Number(res).toExponential(10);
-        res = res.toString();
+        let index = res.indexOf(".");
+        if (index <= 11) {
+          res = res.substring(0, 12);
+        }
       }
+      res = Number(res).toExponential(10);
+      res = res.toString();
     }
     this.setState({
       result: res,
@@ -78,9 +80,6 @@ export default class UngDungMayTinh extends Component {
     }
   };
   toLocalStr = (num) => {
-    if (num === "") {
-      return num;
-    }
     if (num.length <= 12) {
       if (num.includes(".")) {
         let index = num.indexOf(".");
@@ -95,8 +94,9 @@ export default class UngDungMayTinh extends Component {
         }
         return Number(beforeDec).toLocaleString() + "." + afterDec;
       }
+      return Number(num).toLocaleString();
     }
-    return Number(num).toLocaleString();
+    return num;
   };
   decInput = (e) => {
     let val = this.state.result;
