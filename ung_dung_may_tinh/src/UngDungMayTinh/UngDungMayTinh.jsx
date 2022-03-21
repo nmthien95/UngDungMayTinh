@@ -6,7 +6,7 @@ export default class UngDungMayTinh extends Component {
     calculation: "",
     result: "0",
   };
-  numInput = (e) => {  
+  numInput = (e) => {
     let val = this.state.result;
     if (val === "0") {
       val = "";
@@ -20,14 +20,14 @@ export default class UngDungMayTinh extends Component {
   };
   operInput = (e) => {
     let val = this.state.calculation;
-      if (val !== "") {
-        val += this.state.result + e.currentTarget.value;
-      } else {
-        val = this.state.result + e.currentTarget.value;
+    if (val !== "") {
+      val += this.state.result + e.currentTarget.value;
+    } else {
+      val = this.state.result + e.currentTarget.value;
     }
     this.setState({
       calculation: val,
-      result: "0",
+      result: "",
     });
   };
   calculate = () => {
@@ -36,14 +36,12 @@ export default class UngDungMayTinh extends Component {
     res = res.toString();
     if (res.length > 12) {
       res = Number(res).toExponential(10);
-      res = res.toString();   
+      res = res.toString();
     }
-    this.setState(
-      {
-        result: res,
-        calculation: "",
-      }
-    );
+    this.setState({
+      result: res,
+      calculation: "",
+    });
   };
   percentInput = () => {
     let val = this.state.result / 100;
@@ -62,7 +60,7 @@ export default class UngDungMayTinh extends Component {
       result: "0",
     });
   };
-  clearInput = () => {   
+  clearInput = () => {
     let res = this.state.result.substring(0, this.state.result.length - 1);
     if (res.length === 0) {
       this.setState({
@@ -75,19 +73,23 @@ export default class UngDungMayTinh extends Component {
     }
   };
   toLocalStr = (num) => {
+    if (num === "") {
+      return num;
+    }
     if (num.length <= 12) {
       if (num.includes(".")) {
         let index = num.indexOf(".");
         let beforeDec = "";
         let afterDec = "";
+
         for (let i = 0; i < num.length; i++) {
           if (i < index) {
             beforeDec += num[i];
           } else if (i > index) {
-            afterDec += num[i];           
+            afterDec += num[i];
           }
         }
-        return Number(beforeDec).toLocaleString()  +"."+ afterDec;
+        return Number(beforeDec).toLocaleString() + "." + afterDec;
       }
       let n = Number(num);
       return n.toLocaleString();
