@@ -34,9 +34,14 @@ export default class UngDungMayTinh extends Component {
     // eslint-disable-next-line no-eval
     let res = eval(this.state.calculation + this.state.result);
     res = res.toString();
+
     if (res.length > 12) {
-      res = Number(res).toExponential(10);
-      res = res.toString();
+      if (res.includes(".")) {
+        res = res.substring(0, 11);
+      } else {
+        res = Number(res).toExponential(10);
+        res = res.toString();
+      }
     }
     this.setState({
       result: res,
@@ -73,9 +78,6 @@ export default class UngDungMayTinh extends Component {
     }
   };
   toLocalStr = (num) => {
-    if (num === "") {
-      return num;
-    }
     if (num.length <= 12) {
       if (num.includes(".")) {
         let index = num.indexOf(".");
@@ -91,8 +93,6 @@ export default class UngDungMayTinh extends Component {
         }
         return Number(beforeDec).toLocaleString() + "." + afterDec;
       }
-      let n = Number(num);
-      return n.toLocaleString();
     }
     return num;
   };
