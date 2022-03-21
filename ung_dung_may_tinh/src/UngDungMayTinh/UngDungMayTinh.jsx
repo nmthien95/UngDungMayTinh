@@ -78,12 +78,14 @@ export default class UngDungMayTinh extends Component {
     }
   };
   toLocalStr = (num) => {
+    if (num === "") {
+      return num;
+    }
     if (num.length <= 12) {
       if (num.includes(".")) {
         let index = num.indexOf(".");
         let beforeDec = "";
         let afterDec = "";
-
         for (let i = 0; i < num.length; i++) {
           if (i < index) {
             beforeDec += num[i];
@@ -94,7 +96,7 @@ export default class UngDungMayTinh extends Component {
         return Number(beforeDec).toLocaleString() + "." + afterDec;
       }
     }
-    return num;
+    return Number(num).toLocaleString();
   };
   decInput = (e) => {
     let val = this.state.result;
